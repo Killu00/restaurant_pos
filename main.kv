@@ -1,0 +1,808 @@
+<SplashScreen>:
+    Image:
+        source: 'data/splash.png'  # Adjust if your image is in a different folder
+        allow_stretch: True
+        keep_ratio: False
+
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(50)
+        spacing: dp(30)
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.89, 0.7, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: 'RESTAURANT MANAGEMENT'
+            font_size: sp(40)
+            bold: True
+            color: 0.2, 0.2, 0.2, 1
+            size_hint_y: None
+            height: dp(60)
+
+        Label:
+            text: 'Login as:'
+            font_size: sp(32)
+            color: 0.2, 0.2, 0.2, 1
+            size_hint_y: None
+            height: dp(50)
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(20)
+            size_hint: None, None
+            height: dp(180)
+            width: dp(600)
+            pos_hint: {"center_x": 0.5}
+
+            Button:
+                text: 'USER'
+                size_hint: None, None
+                size: dp(180), dp(180)
+                background_color: 0.35, 0.25, 0.2, 1
+                color: 1, 1, 1, 1
+                font_size: sp(20)
+                bold: True
+                on_press: root.login_as('user')
+
+            Button:
+                text: 'ADMIN'
+                size_hint: None, None
+                size: dp(180), dp(180)
+                background_color: 0.35, 0.25, 0.2, 1
+                color: 1, 1, 1, 1
+                font_size: sp(20)
+                bold: True
+                on_press: root.login_as('admin')
+
+            Button:
+                text: 'SUPER ADMIN'
+                size_hint: None, None
+                size: dp(180), dp(180)
+                background_color: 0.35, 0.25, 0.2, 1
+                color: 1, 1, 1, 1
+                font_size: sp(20)
+                bold: True
+                on_press: root.login_as('super_admin')
+
+<SuperAdminLoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(50)
+        spacing: dp(30)
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.89, 0.7, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Top spacer to push content down
+        Widget:
+            size_hint_y: 1
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: dp(30)
+            size_hint_y: None
+            height: self.minimum_height
+
+            Label:
+                text: 'Super Admin Login'
+                font_size: sp(32)
+                size_hint_y: None
+                height: dp(100)
+                color: 0.2, 0.2, 0.2, 1
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+
+            TextInput:
+                id: username
+                hint_text: 'Username'
+                multiline: False
+                font_size: sp(20)
+                size_hint_y: None
+                height: dp(50)
+
+            TextInput:
+                id: password
+                hint_text: 'Password'
+                multiline: False
+                password: True
+                font_size: sp(20)
+                size_hint_y: None
+                height: dp(50)
+
+            Label:
+                text: root.error_message
+                id: error_label
+                color: 1, 0, 0, 1
+                font_size: sp(20)
+                size_hint_y: None
+                height: dp(30)
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: dp(20)
+                size_hint_y: None
+                height: dp(50)
+
+                Button:
+                    text: 'Back'
+                    font_size: sp(18)
+                    background_color: 0.35, 0.25, 0.2, 1
+                    on_press: app.root.current = 'login'
+
+                Button:
+                    text: 'Login'
+                    font_size: sp(18)
+                    background_color: 0.35, 0.25, 0.2, 1
+                    on_press: root.login()
+
+        # Bottom spacer
+        Widget:
+            size_hint_y: 1
+
+
+
+<AdminLoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(50)
+        spacing: dp(30)
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.89, 0.7, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Spacer to push everything up
+        Widget:
+            size_hint_y: 2
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: dp(30)
+            size_hint_y: None
+            height: self.minimum_height
+
+            Label:
+                text: 'Admin Login'
+                font_size: sp(32)
+                size_hint_y: None
+                height: dp(100)
+                color: 0.2, 0.2, 0.2, 1
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+
+            TextInput:
+                id: username
+                hint_text: 'Username'
+                multiline: False
+                font_size: sp(20)
+                size_hint_y: None
+                height: dp(50)
+
+            TextInput:
+                id: password
+                hint_text: 'Password'
+                multiline: False
+                password: True
+                font_size: sp(20)
+                size_hint_y: None
+                height: dp(50)
+
+            Label:
+                text: root.error_message
+                id: error_label
+                color: 1, 0, 0, 1
+                font_size: sp(20)
+                size_hint_y: None
+                height: dp(30)
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: dp(20)
+                size_hint_y: None
+                height: dp(50)
+
+                Button:
+                    text: 'Back'
+                    font_size: sp(18)
+                    background_color: 0.35, 0.25, 0.2, 1
+                    on_press: app.root.current = 'login'
+
+                Button:
+                    text: 'Login'
+                    font_size: sp(18)
+                    background_color: 0.35, 0.25, 0.2, 1
+                    on_press: root.login()
+
+        # Bottom spacer
+        Widget:
+            size_hint_y: 2
+
+<UserLoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(50)
+        spacing: dp(30)
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.89, 0.7, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Spacer to push everything up
+        Widget:
+            size_hint_y: 2
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: dp(30)
+            size_hint_y: None
+            height: self.minimum_height
+
+            Label:
+                text: 'User Login'
+                font_size: sp(32)
+                size_hint_y: None
+                height: dp(80)
+                color: 0.2, 0.2, 0.2, 1
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+
+            TextInput:
+                id: username
+                hint_text: 'Username'
+                multiline: False
+                font_size: sp(20)
+                size_hint_y: None
+                height: dp(50)
+
+            TextInput:
+                id: password
+                hint_text: 'Password'
+                multiline: False
+                password: True
+                font_size: sp(20)
+                size_hint_y: None
+                height: dp(50)
+
+            Label:
+                text: root.error_message
+                id: error_label
+                color: 1, 0, 0, 1
+                font_size: (20)
+                size_hint_y: None
+                height: dp(30)
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: dp(20)
+                size_hint_y: None
+                height: dp(50)
+
+                Button:
+                    text: 'Back'
+                    font_size: sp(18)
+                    background_color: 0.35, 0.25, 0.2, 1
+                    on_press: app.root.current = 'login'
+
+                Button:
+                    text: 'Login'
+                    font_size: sp(18)
+                    background_color: 0.35, 0.25, 0.2, 1
+                    on_press: root.login()
+
+        # Optional bottom spacer to center
+        Widget:
+            size_hint_y: 2
+
+<HomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(20)
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.89, 0.7, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+
+            Label:
+                text: 'TITO JHECK FOOD HUB'
+                font_size: sp(24)  # changed from dp(28) to sp(24)
+                bold: True
+                color: 0.2, 0.2, 0.2, 1
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+
+            Button:
+                text: '☰'
+                size_hint_x: None
+                width: dp(50)
+                font_size: sp(32)  # changed from dp(40) to sp(32)
+                background_normal: ''
+                background_color: 0.2, 0.2, 0.2, 1
+                color: 1, 1, 1, 1
+                on_release: root.open_user_menu()
+
+        GridLayout:
+            cols: 1
+            spacing: dp(20)
+            padding: dp(20)
+            size_hint_y: 0.8
+
+            Button:
+                text: 'TAKE ORDER'
+                background_color: 0.35, 0.25, 0.2, 1
+                color: 1, 1, 1, 1
+                font_size: sp(22)  # changed from dp(26) to sp(22)
+                bold: True
+                on_press: root.manager.current = 'order_screen'
+
+            Button:
+                id: edit_menu_btn
+                text: 'EDIT MENU'
+                background_color: 0.35, 0.25, 0.2, 1
+                color: 1, 1, 1, 1
+                font_size: sp(22)
+                bold: True
+                on_press: root.manager.current = 'edit_menu'
+
+            Button:
+                id: inventory_btn
+                text: 'INVENTORY'
+                background_color: 0.35, 0.25, 0.2, 1
+                color: 1, 1, 1, 1
+                font_size: sp(22)
+                bold: True
+                on_press: root.manager.current = 'inventory'
+
+            Button:
+                id: order_history_btn
+                text: 'ORDER HISTORY'
+                background_color: 0.35, 0.25, 0.2, 1
+                color: 1, 1, 1, 1
+                font_size: sp(22)
+                bold: True
+                on_press: root.manager.current = 'order_history'
+
+<EditMenuScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(10)
+        spacing: dp(10)
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.89, 0.7, 1  # Light yellow background
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Top Bar with Back and Add buttons
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            spacing: dp(10)
+
+            Button:
+                text: 'Back to Home'
+                size_hint_x: 0.2
+                background_color: 0.35, 0.25, 0.2, 1  # Brown
+                color: 1, 1, 1, 1
+                font_size: sp(18)
+                on_press: root.manager.current = 'home'
+
+            Button:
+                text: '+ Add Category'
+                size_hint_x: 0.3
+                background_color: 0.1, 0.1, 0.1, 1  # Black
+                color: 1, 1, 1, 1
+                font_size: sp(18)
+                on_press: root.show_add_category_popup()
+
+            Button:
+                text: 'Delete Category'
+                size_hint_x: 0.33
+                background_color: 0.5, 0.1, 0.1, 1
+                font_size: sp(18)
+                color: 1, 1, 1, 1
+                on_press: root.delete_current_category()
+
+        # Main Content Area (Categories + Items)
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(10)
+
+            # Categories Panel (Left Side - 30% width)
+            ScrollView:
+                size_hint_x: 0.3
+                GridLayout:
+                    id: categories_container
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: dp(5)
+                    padding: dp(5)
+
+            # Items Panel (Right Side - 70% width)
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: dp(10)
+
+                # Current Category Label
+                Label:
+                    id: current_category_label
+                    text: 'Select a category'
+                    font_size: sp(20)
+                    size_hint_y: None
+                    height: dp(40)
+                    color: 0.2, 0.2, 0.2, 1
+                    bold: True
+
+                # Items Scroll View
+                ScrollView:
+                    GridLayout:
+                        id: items_container
+                        cols: 1
+                        size_hint_y: None
+                        height: self.minimum_height
+                        spacing: dp(10)
+                        padding: dp(10)
+
+                # Add Item Button
+                Button:
+                    text: '+ Add New Item'
+                    size_hint_y: None
+                    height: dp(60)
+                    background_color: 0.1, 0.1, 0.1, 1  # Black
+                    font_size: sp(18)
+                    color: 1, 1, 1, 1
+                    disabled: not root.current_category
+                    on_press: root.show_add_item_popup()
+<OrderScreen>:
+    name: 'order_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(10)
+        spacing: dp(10)
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.89, 0.7, 1  # Light yellow background
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            spacing: dp(10)
+            padding: dp(10)
+
+            Button:
+                text: 'Back to Edit Menu'
+                size_hint_x: 0.5
+                background_color: 0, 0, 0, 1
+                font_size: sp(18)
+                color: 1, 1, 1, 1
+                on_press: app.root.current = 'edit_menu'
+
+            Button:
+                text: 'Submit Order'
+                size_hint_x: 0.5
+                background_color: 0.2, 0.8, 0.2, 1
+                font_size: sp(18)
+                color: 1, 1, 1, 1
+                on_press: root.submit_order()
+
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: dp(10)
+            spacing: dp(10)
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.25
+
+                ScrollView:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: self.minimum_height
+                        spacing: dp(5)
+
+                        # Dynamically filled category buttons
+                        BoxLayout:
+                            orientation: 'vertical'
+                            size_hint_y: None
+                            height: self.minimum_height
+                            spacing: dp(5)
+                            id: categories_container
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.75
+
+                Label:
+                    id: current_category_label
+                    text: ''
+                    font_size: sp(22)
+                    size_hint_y: None
+                    height: dp(40)
+                    color: 0, 0, 0, 1
+
+                ScrollView:
+                    BoxLayout:
+                        id: items_container
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: self.minimum_height
+                        spacing: dp(5)
+
+                Label:
+                    id: total_label
+                    text: 'Total: $0.00'
+                    size_hint_y: None
+                    height: dp(30)
+                    font_size: sp(18)
+                    color: 0, 0, 0, 1
+
+                ScrollView:
+                    BoxLayout:
+                        id: order_summary
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: self.minimum_height
+                        spacing: dp(5)
+
+                Button:
+                    text: 'Back'
+                    size_hint_y: None
+                    height: dp(50)
+                    background_color: 0.3, 0.3, 0.3, 1
+                    color: 1, 1, 1, 1
+                    font_size: sp(16)
+                    on_press: app.root.current = 'home'
+
+<InventoryScreen>:
+    name: 'inventory'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(10)
+        spacing: dp(10)
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.89, 0.7, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            spacing: dp(10)
+            padding: dp(10)
+
+            Button:
+                text: 'Back to Home'
+                size_hint_x: 0.5
+                background_color: 0, 0, 0, 1
+                font_size: sp(18)
+                color: 1, 1, 1, 1
+                on_press: app.root.current = 'home'
+
+            Button:
+                text: 'Add Item'
+                size_hint_x: 0.5
+                background_color: 0.2, 0.6, 0.8, 1
+                font_size: sp(18)
+                color: 1, 1, 1, 1
+                on_press: root.submit_inventory_item()
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            spacing: dp(10)
+
+            TextInput:
+                id: item_name_input
+                hint_text: 'Item Name'
+                multiline: False
+                font_size: sp(16)
+
+            TextInput:
+                id: item_quantity_input
+                hint_text: 'Quantity'
+                input_filter: 'int'
+                multiline: False
+                font_size: sp(16)
+
+        Label:
+            text: 'Inventory List'
+            font_size: sp(20)
+            size_hint_y: None
+            height: dp(30)
+            color: 0, 0, 0, 1
+
+        ScrollView:
+            BoxLayout:
+                id: inventory_list
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(5)
+
+
+<OrderHistoryScreen>:
+    name: 'order_history'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(10)
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.89, 0.7, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: 'Order History'
+            font_size: sp(26)
+            size_hint_y: None
+            height: dp(50)
+            color: 0.2, 0.2, 0.2, 1
+
+        Spinner:
+            text: 'Show All'
+            values: ['Show All', 'Today', 'Last 7 Days', 'This Month']
+            size_hint_y: None
+            height: dp(40)
+            font_size: sp(18)
+            on_text: root.filter_order_history(self.text)
+
+        ScrollView:
+            BoxLayout:
+                id: order_history_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            spacing: dp(10)
+
+            Button:
+                text: 'Export Orders'
+                background_color: 0.2, 0.6, 0.2, 1
+                color: 1, 1, 1, 1
+                font_size: sp(16)
+                on_press: root.export_order_history_to_csv()
+
+            Button:
+                text: 'Clear History'
+                background_color: 0.7, 0.1, 0.1, 1
+                color: 1, 1, 1, 1
+                font_size: sp(16)
+                on_press: root.confirm_clear_order_history()
+
+            Button:
+                text: 'Back to Home'
+                background_color: 0.3, 0.3, 0.3, 1
+                color: 1, 1, 1, 1
+                font_size: sp(16)
+                on_press: root.manager.current = 'home'
+
+<CreateAccountScreen>:
+    name: 'create_account_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(30)
+        spacing: dp(20)
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.89, 0.7, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: 'Create New Account'
+            font_size: sp(24)
+            size_hint_y: None
+            height: dp(40)
+
+        TextInput:
+            id: username_input
+            hint_text: 'Username'
+            multiline: False
+            size_hint_y: None
+            height: dp(40)
+
+        TextInput:
+            id: password_input
+            hint_text: 'Password'
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: dp(40)
+
+        TextInput:
+            id: confirm_password_input
+            hint_text: "Confirm Password"
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: dp(40)
+
+        Spinner:
+            id: role_spinner
+            text: 'Select Role'
+            values: ['admin', 'user']
+            size_hint_y: None
+            height: dp(40)
+            font_size: sp(16)
+
+        Button:
+            text: 'Create Account'
+            on_release: root.create_account()
+            size_hint_y: None
+            height: dp(50)
+            font_size: sp(18)
+
+        Button:
+            text: 'Back to Home'
+            on_release: app.root.current = 'home'
+            size_hint_y: None
+            height: dp(40)
+            font_size: sp(16)
+
+<ManageAccountsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(10)
+
+        Label:
+            text: 'Manage Accounts'
+            font_size: sp(24)
+            bold: True
+            size_hint_y: None
+            height: dp(40)
+
+        ScrollView:
+            GridLayout:
+                id: user_list
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+
+
